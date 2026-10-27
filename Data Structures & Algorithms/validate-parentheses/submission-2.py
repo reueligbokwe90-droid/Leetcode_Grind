@@ -1,14 +1,16 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        order = {")":"(", "}":"{", "]":"["}
-        res = []
+        memory = {']':'[', '}':'{',')':'('}
+        stack = []
 
         for char in s:
-            if char in order:
-                if res and res[-1] == order[char]:
-                    res.pop()
+            if stack and char in memory:
+                if memory[char] in stack[-1]:
+                    stack.pop()
                 else:
-                    return False
+                    stack.append(char)
             else:
-                res.append(char)
-        return True if not res else False
+                stack.append(char)
+        return True if not stack else False
+                
+            
